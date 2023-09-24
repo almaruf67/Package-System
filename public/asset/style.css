@@ -136,8 +136,16 @@
     }
     
     .back-h2 {
-      font-size: 2rem;
+      font-size: 1.2rem;
       margin-top: 0;
+      text-align: center;
+    }
+
+    .back-h2 input{
+      border: none; /* Remove the border */
+    outline: none; /* Remove the outline when focused */
+    background-color: transparent; 
+      color: var(--bs-heading-color);
     }
 
     
