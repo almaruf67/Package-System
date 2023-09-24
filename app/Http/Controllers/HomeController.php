@@ -28,6 +28,12 @@ class HomeController extends Controller
         $plans = Plan::orderBy('id')->get();
         return view('home',compact('plans'));
     } 
+
+    public function expire()
+    {
+        $plans = Plan::orderBy('id')->get();
+        return view('manager.expire',compact('plans'));
+    }
   
     /**
      * Show the application dashboard.

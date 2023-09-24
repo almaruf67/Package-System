@@ -7,7 +7,7 @@
             @csrf
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    {{-- {{ dd($info['name']) }} --}}
+                    
 
                     <h3 class="pb-3">Billing details</h3>
                     <div class="mb-3">
@@ -23,12 +23,17 @@
                     <div class="mb-3">
                         <label for="type" class="form-label">Type</label>
                         <input type="text" class="form-control" id="type" name="type"
-                                value="{{ $info['type'] }}" disabled />
+                                value="{{ $Plan['name'] }}" disabled />
                     </div>
                     <div class="mb-3">
-                        <label for="price" class="form-label">Price</label>
+                        <label for="month" class="form-label">Selected Month</label>
+                        <input type="int" class="form-control" id="month" name="month"
+                                value="{{ $info['month'] }}" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Total Price</label>
                         <input type="int" class="form-control" id="price" name="price"
-                                value="{{ $info['price'] }}" disabled />
+                                value="{{ $Plan['price']*$info['month'] }}" disabled />
                     </div>
                     <div class="mt-5 mb-3 d-flex flex-column flex-md-row justify-content-between">
                         <div class="mb-4 mb-md-0"><a href="{{ route('home') }}" class="btn btn-danger">Back</a></div>

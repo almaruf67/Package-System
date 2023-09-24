@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\models\SubscriptionPlan;
 use Illuminate\Support\Facades\DB;
@@ -43,14 +44,9 @@ class SubscriptionController extends Controller
                 'expiry_date'  =>  Carbon::now()->addMonth($plan),
             ]);
         }
-        return redirect()->route('manager.home');
+        return redirect()->route('panel');
 
 
-    }
-
-    public function expire()
-    {
-        return view('manager.expire');
     }
 
     public function panel()
@@ -61,7 +57,9 @@ class SubscriptionController extends Controller
     public function order(Request $request)
     {
         $info = $request->all();
-    //    dd($info);
-       return View('manager.payment',compact('info'));
+        // dd($info);
+        $Plan = Plan::findOrFail($request->id);
+    //    dd($Plan);
+       return View('manager.payment',compact('info','Plan'));
     }
 }

@@ -19,8 +19,9 @@ use App\Http\Controllers\SslCommerzPaymentController;
 |
 */
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/expired', [HomeController::class, 'expire'])->name('expire');
 
 Auth::routes();
 
@@ -54,7 +55,6 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
   
     Route::get('/subscribe/{type}', [SubscriptionController::class, 'subscribe'])->name('sub');
     Route::get('/panel', [SubscriptionController::class, 'panel'])->name('panel')->middleware('subscription.expired');
-    Route::get('/expired', [SubscriptionController::class, 'expire'])->name('expire');
     Route::resource('/product', ProductController::class)->middleware('subscription.expired');
     Route::get('/order', [OrderController::class, 'index'])->name('order')->middleware('subscription.expired');
     Route::get('/order/{id}', [OrderController::class, 'addtoCart'])->name('addcart')->middleware('subscription.expired');

@@ -16,7 +16,7 @@
                                 @else
                                 <div class="card light">
                                 @endif
-                           
+                                <input type="hidden" name="id" value="{{ $plan['id'] }}">
                                 <div class="text-overlay">
                                     <h3>{{ $plan['name'] }}</h3>
                                     <input type="number" class="d-none" id="price{{ $loop->iteration }}" value="{{ $plan['price'] }}">
@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="purchase-button-container2">
                                     <h5 class="back-h2">
-                                        ৳<input type="number" class="col-4" id="u_price{{ $loop->iteration }}" name="price" value="{{ $plan['price'] }}" readonly>
+                                        ৳<input type="number" class="col-4" id="u_price{{ $loop->iteration }}" name="u_price" value="{{ $plan['price'] }}" readonly>
                                         /<input type="number" name="month" class="col-3" id="month{{ $loop->iteration }}" value="1" min="1" onchange="updateTotal(this,{{ $loop->iteration }})">
                                         Months
                                     </h5>
