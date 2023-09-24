@@ -1,0 +1,43 @@
+.w-4 {
+    width: 1rem;
+}
+.h-4 {
+    height: 1rem;
+}
+
+.w-6 {
+    width: 1.5rem;
+}
+.h-6 {
+    height: 1.5rem;
+}
+
+.dropzone {
+    background: white;
+    border-radius: 5px;
+    border: 2px dashed rgb(0, 135, 247);
+    border-image: none;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.p-data h3 {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    line-height: 28px;
+}
+.p-data {
+    padding-left: 15px;
+}
+.p-data p {
+    line-height: 25px;
+}
+
+#cart{
+    overflow-y: auto;
+}
+
+
+
