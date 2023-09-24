@@ -6,7 +6,6 @@ use Closure;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\SubscriptionPlan;
-use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckSubscriptionExpiry
@@ -15,7 +14,8 @@ class CheckSubscriptionExpiry
     {
         // $user = auth()->user();
         $data= SubscriptionPlan::where('user_id', auth()->user()->id)->first();
-        if(isset($data->expiry_date)==false)
+        
+        if(isset($data->expiry_date)==false || $data->status==0)
         {
             return redirect()->route('expire');
         }

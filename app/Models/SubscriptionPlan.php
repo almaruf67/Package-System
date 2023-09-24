@@ -13,6 +13,7 @@ class SubscriptionPlan extends Model
         'type',
         'price',
         'duration',
+        'status',
         'user_id',
         'activation_date',
         'expiry_date',        

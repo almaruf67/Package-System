@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('type');
             $table->decimal('price');
             $table->integer('duration'); // In months
+            $table->tinyInteger('status')->default(1);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')
             ->cascadeOnDelete()->cascadeOnUpdate();

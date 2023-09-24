@@ -7,7 +7,7 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('admin-asset/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin-asset/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('admin-asset/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin-asset/css/custom.css')}}">
@@ -25,12 +25,6 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
-        <div class="navbar-nav pl-2">
-            <!-- <ol class="breadcrumb p-0 m-0 bg-white">
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol> -->
-        </div>
-
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -38,7 +32,7 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link p-0 pr-3" data-toggle="dropdown" href="#">
+                <a class="nav-link p-0 pr-3 mt-2" data-toggle="dropdown" href="#">
                     <i class="fas fa-user"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
@@ -68,7 +62,7 @@
     </nav>
     <!-- /.navbar -->
     <!-- Main Sidebar Container -->
-     @include('admin.layouts.sidebar')
+    @include('manager.layouts.sidebar')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
        <!--to control child(admin-template)-->
@@ -76,31 +70,23 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer text-center">
-        <strong>Copyright &copy; 2023 Foodio. All rights reserved.</strong>
+        <strong>Copyright &copy; 2023. All rights reserved.</strong>
     </footer>
 
 </div>
 <!-- ./wrapper -->
 <!-- jQuery -->
-<script src="{{asset('admin-asset/js/jquery.min.js')}}"></script>
-
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script src="{{asset('admin-asset/plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('admin-asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('admin-asset/js/adminlte.min.js')}}"></script>
-
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('admin-asset/js/demo.js')}}"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
 
-<script>
-    $(document).ready(function() {
-        $('#sortable-table').DataTable({
-        paging: true,        // Enable pagination
-        // pageLength: 100,     // Set the number of rows per page to 100
-        lengthChange: true, // Disable entries per page dropdown
-        searching: true,    // Disable search box
-        // info: false     // Disable table information
-    });
-    });
-</script>
 @yield('script')
 
 </body>
