@@ -1,169 +1,200 @@
 @extends('manager.layouts.app')
 @section('content')
-    <div class="container">
+    <main class="page-content">
 
-        <div class="row">
-            <!-- Product List -->
-            <div class="col-md-7 pr-3">
-                <div class="row mb-2 pt-2">
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
                     <div class="col-sm-12 d-flex justify-content-between align-items-center">
-                        <h2 class="text-center">Product List</h2>
+                        <h5 class="mb-3 border-bottom pb-3">Product List</h5>
 
                         <!-- Cart Button (visible on smaller screens) -->
-                        <!-- Cart Button (visible on smaller screens) -->
-                        <a class="d-md-none" data-toggle="modal" data-target="#cartModal">
+                        <button id="showCartModal" class="btn d-md-none" data-toggle="modal" data-target="#cartModal">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span
                                 class="badge bg-danger">{{ count((array) session('cart')) }}</span>
-                        </a>
+                        </button>
+
 
                         <!-- Cart Pop-Out Modal -->
-                        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog"
-                            aria-labelledby="cartModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="cartModalLabel">Cart</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body bg-secondary">
+                        <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Cart</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
                                         <!-- Your cart content goes here -->
-                                        <ul class="list-group" id="cart">
-                                            @php $total = 0 @endphp
-                                            @if (session('cart'))
+                                        <table id="shoppingCart" class="table table-condensed table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 50%">Product</th>
+                                                    <th style="width: 12%">Price</th>
+                                                    <th style="width: 10%">Quantity</th>
+                                                    <th style="width: 12%">Sub</th>
+                                                    <th style="width: 16%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php $total = 0 @endphp
                                                 @foreach (session('cart') as $id => $details)
-                                                    <li
-                                                        class="d-flex align-items-center position-relative border-top py-2 border-light">
-                                                        <div class="px-3">
-                                                            <h5>{{ $loop->iteration }}.</h5>
-                                                        </div>
-                                                        <div class="p-img light-bg">
-                                                            <img src="{{ asset($details['poster']) }}" alt="Product Image"
-                                                                width="75px">
-                                                        </div>
-                                                        <div class="p-data">
-                                                            <h3 class="font-semi-bold">{{ $details['title'] }}</h3>
-                                                            @php $sum =$details['quantity'] * $details['price']  @endphp
-                                                            <p class="theme-clr font-semi-bold"
-                                                                data-id="{{ $id }}"><input type="number"
-                                                                    value="{{ $details['quantity'] }}"
-                                                                    class="quantity cart_update col-3 bg-transparent text-white"
-                                                                    min="1" />
-                                                                x {{ $details['price'] }} ৳ ={{ $sum }}৳</p>
-                                                            @php $total +=$sum  @endphp
-                                                        </div>
-                                                        <div rowdel="{{ $id }}" class="p-data">
-                                                            <p><a
-                                                                    class="btn btn-outline-danger delete-product bottom-50 end-0"><i
-                                                                        class="fas fa-trash-alt"></i></a></p>
-                                                        </div>
-                                                    </li>
+                                                    <tr>
+                                                        <td data-th="Product">
+                                                            <div class="row">
+                                                                <div class="col-md-9 text-left">
+                                                                    <h6>{{ $details['title'] }}</h6>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="price" data-th="Price"><span>{{ $details['price'] }}</span></td>
+            
+                                                        <td data-id="{{ $id }}">
+                                                            <input type="number"
+                                                                class="form-control form-control-sm text-center cart_update quantity"
+                                                                min="1" value="{{ $details['quantity'] }}" />
+                                                        </td>
+                                                        @php $sum =$details['quantity'] * $details['price']  @endphp
+                                                        <td class="price" data-th="Sub"><span>{{ $sum }}</span></td>
+            
+                                                        @php $total +=$sum  @endphp
+                                                        <td class="actions">
+                                                            <div rowdel="{{ $id }}" class="p-data">
+                                                                <button
+                                                                    class="btn btn-white border-secondary bg-white btn-md delete-product">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
-                                            @endif
-                                            <li class="d-flex justify-content-between border-top p-2 border-light">
-                                                <div class="pl-3"><span class="">Total Price: &nbsp;</span><strong>{{ $total }} ৳</strong></div>
-                                                <a href="#" class="btn btn-dark">Place Order</a>
-                                            </li>
-                                        </ul>
+                                            </tbody>
+                                        </table>
+                                        <div class="row mt-4 d-flex justify-content-end align-items-center">
+                                            <div class="col-6 d-flex align-items-center">
+                                                <h5>Total:</h5>
+                                                <h5 class="px-3">
+                                                    <i class="fas fa-bangladeshi-taka-sign"></i>{{ $total }}
+                                                </h5>
+                                            </div>
+                                            <div class="col-6 col-sm-6 order-md-2 text-right pt-3">
+                                                <a href="#" class="btn btn-primary mb-4 btn-md pl-3 pr-3">Checkout</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                </div>
-                <div class="row pt-3">
-                    <div class="container">
-                        <div class="row">
-                            @foreach ($products as $item)
-                                <div class="col-xl-3 col-md-4 col-sm-6 col-6">
-                                    <a href="{{ route('addcart', $item->id) }}" @style('text-decoration:none')>
-                                        <div class="">
-                                            <h4 class="">{{ $item->Title }}</h4>
-                                            <div class="">
-                                                <img alt="" src="{{ asset($item->Poster) }}" width="120px"
-                                                    height="80px">
-                                            </div>
-                                            <p><span>$</span>{{ $item->Price }}</p>
+
+                    <div class="row">
+                        @foreach ($products as $item)
+                            <!-- Product Cards -->
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+                                <div class="product-card px-3 py-3">
+                                    <!-- Product Image -->
+                                    <div class="w-100 d-flex justify-content-center">
+                                        <img src="{{ asset($item->Poster) }}" alt="" class="img-fluid" />
+                                    </div>
+
+                                    <!-- Product Name -->
+                                    <h6 class="mt-2">{{ $item->Title }}</h6>
+                                    <!-- Rating and Review Count -->
+                                    <div class="d-flex flex-column">
+                                        <!-- Product Price -->
+                                        <div class="d-flex gap-1">
+                                            <i class="fas fa-bangladeshi-taka-sign"></i>
+                                            <h6>{{ $item->Price }}</h6>
                                         </div>
-                                    </a>
+                                        <!-- Quantity Input and Add to Cart Button -->
+                                        <div>
+                                            <a href="{{ route('addcart', $item->id) }}" class="btn btn-primary">
+                                                <i class="fa-solid fa-bag-shopping"></i>Add
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            @endforeach
-                            <br>
-                            <div class="d-flex justify-content-center m-auto mt-5 ">
-                                {{ $products->links() }}
+                                <!-- Repeat the above product card for additional products -->
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="col-5 d-none d-md-block">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end border-bottom pb-2 mb-3">
+                            <h5>Cart</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-12 cart">
+                            <table id="shoppingCart" class="table table-condensed table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%">Product</th>
+                                        <th style="width: 12%">Price</th>
+                                        <th style="width: 10%">Quantity</th>
+                                        <th style="width: 12%">Sub</th>
+                                        <th style="width: 16%">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $total = 0 @endphp
+                                    @foreach (session('cart') as $id => $details)
+                                        <tr>
+                                            <td data-th="Product">
+                                                <div class="row">
+                                                    <div class="col-md-3 text-left">
+                                                        <img src="{{ asset($details['poster']) }}" alt=""
+                                                            class="img-fluid d-none d-md-block rounded mb-2 shadow" />
+                                                    </div>
+                                                    <div class="col-md-9 text-left">
+                                                        <h6>{{ $details['title'] }}</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="price" data-th="Price"><span>{{ $details['price'] }}</span></td>
+
+                                            <td data-id="{{ $id }}">
+                                                <input type="number"
+                                                    class="form-control form-control-sm text-center cart_update quantity"
+                                                    min="1" value="{{ $details['quantity'] }}" />
+                                            </td>
+                                            @php $sum =$details['quantity'] * $details['price']  @endphp
+                                            <td class="price" data-th="Sub"><span>{{ $sum }}</span></td>
+
+                                            @php $total +=$sum  @endphp
+                                            <td class="actions">
+                                                <div rowdel="{{ $id }}" class="p-data">
+                                                    <button
+                                                        class="btn btn-white border-secondary bg-white btn-md delete-product">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="row mt-4 d-flex justify-content-end align-items-center">
+                                <div class="col-6 d-flex align-items-center">
+                                    <h5>Total:</h5>
+                                    <h5 class="px-3">
+                                        <i class="fas fa-bangladeshi-taka-sign"></i>{{ $total }}
+                                    </h5>
+                                </div>
+                                <div class="col-6 col-sm-6 order-md-2 text-right pt-3">
+                                    <a href="#" class="btn btn-primary mb-4 btn-md pl-3 pr-3">Checkout</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Cart -->
-            <div class="col-md-5 p-2 bg-secondary rounded d-none d-md-block">
-             
-                <!-- Cart Section (visible on larger screens) -->
-
-                <div class="col-sm-12">
-                    <h2 class="text-center">Cart</h2>
-                </div>
-                <ul class="list-group" id="cart">
-                    @php $total = 0 @endphp
-                    
-                    @if (session('cart'))
-                        @foreach (session('cart') as $id => $details)
-                            <li class="d-flex align-items-center position-relative border-top py-2 border-light">
-                                <div class="px-3">
-                                    <h5>{{ $loop->iteration }}.</h5>
-                                </div>
-                                <div class="p-img light-bg">
-                                    <img src="{{ asset($details['poster']) }}" alt="Product Image" width="75px">
-                                </div>
-                                <div class="p-data">
-                                    <h3 class="font-semi-bold">{{ $details['title'] }}</h3>
-                                    @php $sum =$details['quantity'] * $details['price']  @endphp
-                                    <p class="theme-clr font-semi-bold" data-id="{{ $id }}"><input type="number"
-                                            value="{{ $details['quantity'] }}"
-                                            class="quantity cart_update col-3 bg-transparent text-white" min="1" />
-                                        x {{ $details['price'] }} ৳ ={{ $sum }}৳</p>
-                                    @php $total +=$sum  @endphp
-                                </div>
-                                <div rowdel="{{ $id }}" class="p-data">
-                                    <p><a class="btn btn-outline-danger delete-product bottom-50 end-0"><i
-                                                class="fas fa-trash-alt"></i></a></p>
-                                </div>
-                            </li>
-                        @endforeach
-                    @endif
-                
-                    <li class="d-flex justify-content-between border-top p-2 border-light">
-                        <div class="pl-3"><span class="">Total Price: &nbsp;</span><strong
-                                style="color:#fff;">{{ $total }} ৳</strong></div>
-                        <a href="#" class="btn btn-dark">Place Order</a>
-                    </li>
-                </ul>
-
-            </div>
-
         </div>
-
-
-    </div>
+    </main>
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function() {
-            $('#sortable-table').DataTable({
-                paging: true, // Enable pagination
-                // pageLength: 100,     // Set the number of rows per page to 100
-                lengthChange: true, // Disable entries per page dropdown
-                searching: true, // Disable search box
-                // info: false     // Disable table information
-            });
-        });
-    </script>
     <script type="text/javascript">
         $(".delete-product").click(function(e) {
             e.preventDefault();
@@ -196,12 +227,22 @@
                 method: "patch",
                 data: {
                     _token: '{{ csrf_token() }}',
-                    id: ele.parents("p").attr("data-id"),
-                    quantity: ele.parents("p").find(".quantity").val()
+                    id: ele.parents("td").attr("data-id"),
+                    quantity: ele.parents("td").find(".quantity").val()
                 },
                 success: function(response) {
                     window.location.reload();
                 }
+            });
+        });
+    </script>
+    <script>
+        // Wait for the document to be ready
+        $(document).ready(function() {
+            // Handle click event for the button with id "showCartModal"
+            $("#showCartModal").click(function() {
+                // Toggle the modal by targeting its data-target
+                $($(this).data("target")).modal("toggle");
             });
         });
     </script>

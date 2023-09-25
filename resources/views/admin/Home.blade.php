@@ -1,5 +1,4 @@
 @extends('admin.layouts.app')
-@section('title','Panel')
 @section('content')
 <main class="page-content">
       <!--breadcrumb-->
