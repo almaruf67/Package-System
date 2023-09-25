@@ -19,7 +19,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(1);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')
-            ->cascadeOnDelete()->cascadeOnUpdate();
+            ->cascadeOnUpdate();
             $table->timestamp('activation_date')->nullable();
             $table->timestamp('expiry_date')->nullable();
         });

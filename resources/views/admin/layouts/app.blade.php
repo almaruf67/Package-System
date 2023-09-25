@@ -1,93 +1,266 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="minimal-theme">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel Blog :: Administrative Panel</title>
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('admin-asset/plugins/fontawesome-free/css/all.min.css')}}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset('admin-asset/css/adminlte.min.css')}}">
-    <link rel="stylesheet" href="{{asset('admin-asset/css/custom.css')}}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    @yield('link')
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="{{ asset('admin/images/favicon-32x32.png') }} " type="image/png" />
+    <!--plugins-->
+    <link href="{{ asset('admin/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/css/bootstrap-extended.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/css/icons.css') }}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+
+    <!-- loader-->
+    <link href="{{ asset('admin/css/pace.min.css') }}" rel="stylesheet" />
+
+    <!--Theme Styles-->
+    <link href="{{ asset('admin/css/dark-theme.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/css/light-theme.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/css/semi-dark.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/css/header-colors.css') }}" rel="stylesheet" />
+
+    <title>Admin Panel</title>
 </head>
-<body class="hold-transition sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Right navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                    <i class="fas fa-expand-arrows-alt"></i>
-                </a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link p-0 pr-3 mt-2" data-toggle="dropdown" href="#">
-                    <i class="fas fa-user"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
-                    <h4 class="h4 mb-0"><strong> {{ Auth::user()->name }}</strong></h4>
-                    <div class="mb-3"> {{ Auth::user()->email }}</div>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-user-cog mr-2"></i> Settings
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ route('password.request') }}" class="dropdown-item">
-                        <i class="fas fa-lock mr-2"></i> Change Password
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }}
-                    </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+<body>
+    <!--start wrapper-->
+    <div class="wrapper">
+        <!--start top header-->
+        <header class="top-header">
+            <nav class="navbar navbar-expand">
+                <div class="mobile-toggle-icon d-xl-none">
+                    <i class="bi bi-list"></i>
                 </div>
-            </li>
-        </ul>
-    </nav>
-    <!-- /.navbar -->
-    <!-- Main Sidebar Container -->
-    @include('manager.layouts.sidebar')
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-       <!--to control child(admin-template)-->
-        @yield('content')
+                <div class="top-navbar d-none d-xl-block">
+                    <ul class="navbar-nav align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.home') }}">home</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="search-toggle-icon d-xl-none ms-auto">
+                    <i class="bi bi-search"></i>
+                </div>
+                <form class="searchbar d-none d-xl-flex ms-auto">
+                    <div class="position-absolute top-50 translate-middle-y search-icon ms-3">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <input class="form-control" type="text" placeholder="Type here to search" />
+                    <div class="position-absolute top-50 translate-middle-y d-block d-xl-none search-close-icon">
+                        <i class="bi bi-x-lg"></i>
+                    </div>
+                </form>
+                <div class="top-navbar-right ms-3">
+                    <ul class="navbar-nav align-items-center">
+                        <li class="nav-item dropdown dropdown-large">
+                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
+                                data-bs-toggle="dropdown">
+                                <div class="user-setting d-flex align-items-center gap-1">
+                                    <img src="{{ asset("admin/images/avatars/avatar-1.png") }}" class="user-img" alt="" />
+                                    <div class="user-name d-none d-sm-block">{{ Auth::user()->name }}</div>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ asset("admin/images/avatars/avatar-1.png") }}" alt=""
+                                                class="rounded-circle" width="60" height="60" />
+                                            <div class="ms-3">
+                                                <h6 class="mb-0 dropdown-user-name">{{ Auth::user()->name }}</h6>
+                                                <small class="mb-0 dropdown-user-designation text-secondary">HR
+                                                    Manager</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="pages-user-profile.html">
+                                        <div class="d-flex align-items-center">
+                                            <div class="setting-icon">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                            <div class="setting-text ms-3">
+                                                <span>Profile</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex align-items-center">
+                                            <div class="setting-icon">
+                                                <i class="bi bi-gear-fill"></i>
+                                            </div>
+                                            <div class="setting-text ms-3">
+                                                <span>Setting</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="index2.html">
+                                        <div class="d-flex align-items-center">
+                                            <div class="setting-icon">
+                                                <i class="bi bi-speedometer"></i>
+                                            </div>
+                                            <div class="setting-text ms-3">
+                                                <span>Dashboard</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex align-items-center">
+                                            <div class="setting-icon">
+                                                <i class="bi bi-piggy-bank-fill"></i>
+                                            </div>
+                                            <div class="setting-text ms-3">
+                                                <span>Earnings</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <div class="d-flex align-items-center">
+                                            <div class="setting-icon">
+                                                <i class="bi bi-lock-fill"></i>
+                                            </div>
+                                            <div class="setting-text ms-3"><span>Logout</span></div>
+                                        </div>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!--end top header-->
+
+        @include('admin.layouts.sidebar')
+
+        {{-- <div class="content-wrapper"> --}}
+            <!--to control child(admin-template)-->
+             @yield('content')
+         {{-- </div> --}}
+
+        <!--start overlay-->
+        <div class="overlay nav-toggle-icon"></div>
+        <!--end overlay-->
+
+        <!--Start Back To Top Button-->
+        <a href="javaScript:;" class="back-to-top"><i class="bx bxs-up-arrow-alt"></i></a>
+        <!--End Back To Top Button-->
+
+        <!--start switcher-->
+        <div class="switcher-body">
+            <button class="btn btn-primary btn-switcher shadow-sm" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                <i class="bi bi-paint-bucket me-0"></i>
+            </button>
+            <div class="offcanvas offcanvas-end shadow border-start-0 p-2" data-bs-scroll="true"
+                data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
+                <div class="offcanvas-header border-bottom">
+                    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
+                        Theme Customizer
+                    </h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <h6 class="mb-0">Theme Variation</h6>
+                    <hr />
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LightTheme"
+                            value="option1" />
+                        <label class="form-check-label" for="LightTheme">Light</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="DarkTheme"
+                            value="option2" />
+                        <label class="form-check-label" for="DarkTheme">Dark</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SemiDarkTheme"
+                            value="option3" />
+                        <label class="form-check-label" for="SemiDarkTheme">Semi Dark</label>
+                    </div>
+                    <hr />
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MinimalTheme"
+                            value="option3" checked />
+                        <label class="form-check-label" for="MinimalTheme">Minimal Theme</label>
+                    </div>
+                    <hr />
+                    <h6 class="mb-0">Header Colors</h6>
+                    <hr />
+                    <div class="header-colors-indigators">
+                        <div class="row row-cols-auto g-3">
+                            <div class="col">
+                                <div class="indigator headercolor1" id="headercolor1"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor2" id="headercolor2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor3" id="headercolor3"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor4" id="headercolor4"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor5" id="headercolor5"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor6" id="headercolor6"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor7" id="headercolor7"></div>
+                            </div>
+                            <div class="col">
+                                <div class="indigator headercolor8" id="headercolor8"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end switcher-->
     </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer text-center">
-        <strong>Copyright &copy; 2023. All rights reserved.</strong>
-    </footer>
+    <!--end wrapper-->
 
-</div>
-<!-- ./wrapper -->
-<!-- jQuery -->
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-<script src="{{asset('admin-asset/plugins/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{asset('admin-asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{asset('admin-asset/js/adminlte.min.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset('admin-asset/js/demo.js')}}"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-
-
-@yield('script')
-
+    <!-- Bootstrap bundle JS -->
+    <script src="{{ asset('admin/js/bootstrap.bundle.min.js') }}"></script>
+    <!--plugins-->
+    <script src="{{ asset('admin/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/simplebar/js/simplebar.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('admin/js/pace.min.js') }}"></script>
+    <!--app-->
+    <script src="{{ asset('admin/js/app.js') }}"></script>
+    @yield('script')
 </body>
+
 </html>

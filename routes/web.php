@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SslCommerzPaymentController;
@@ -41,9 +43,18 @@ All Normal Users Routes List
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:web,admin']], function() {
   
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::get('/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::resource('/product', ProductController::class);
+    Route::resource('/user', UserController::class);
+    Route::get('/admin', [UserController::class, 'adminshow'])->name('adminuser');
+    Route::get('/SubscribedUser', [SubscriptionController::class, 'Subshow'])->name('Subshow');
+    Route::patch('/SubscribedUserEdit', [SubscriptionController::class, 'update'])->name('Subupdate');
+    Route::delete('/SubscribedUserdel', [SubscriptionController::class, 'destroy'])->name('Subdelete');
+    Route::resource('/plans',PlanController::class);
+    
+    
 });
   
 /*------------------------------------------
