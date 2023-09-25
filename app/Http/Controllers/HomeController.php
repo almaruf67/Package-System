@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
  
 use App\Models\Plan;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
   
 class HomeController extends Controller
 {
@@ -42,7 +45,20 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
-        return view('admin.Home');
+        $today = DB::table('orders')->whereDate('ordered_at',now()->toDateString())->get();
+        $todayorders = $today->count();
+        $todayincome = $today->sum('amount');
+        $month = DB::table('orders')->whereYear('ordered_at', now()->year)
+        ->whereMonth('ordered_at', now()->month)->get();
+        $monthorders = $month->count();
+        $monthincome = $month->sum('amount');
+        $users = User::where('type',2)->get()->count();
+        $admins = User::where('type',1)->get()->count();
+        $products = Product::get()->count();
+        $plans = plan::get()->count();
+        // dd($products);
+        
+        return view('admin.Home',compact('todayorders','todayincome','monthorders','monthincome','users','admins','products','plans'));
     }
   
     /**

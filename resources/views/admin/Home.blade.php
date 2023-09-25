@@ -12,7 +12,7 @@
                       <div class="d-flex align-items-center">
                           <div class="">
                               <p class="mb-1 text-white">Today Orders</p>
-                              <h4 class="mb-0 text-white">248</h4>
+                              <h4 class="mb-0 text-white">{{ $todayorders }}</h4>
                           </div>
                           <div class="ms-auto widget-icon bg-white-1 text-white">
                               <i class="bi bi-bag-check-fill"></i>
@@ -27,7 +27,7 @@
                       <div class="d-flex align-items-center">
                           <div class="">
                               <p class="mb-1 text-white">Today Earning</p>
-                              <h4 class="mb-0 text-white">$1,245</h4>
+                              <h4 class="mb-0 text-white">${{ $todayincome }}</h4>
                           </div>
                           <div class="ms-auto widget-icon bg-white-1 text-white">
                               <i class="bi bi-currency-dollar"></i>
@@ -42,7 +42,7 @@
                       <div class="d-flex align-items-center">
                           <div class="">
                               <p class="mb-1 text-white">This Month Orders</p>
-                              <h4 class="mb-0 text-white">248</h4>
+                              <h4 class="mb-0 text-white">{{ $monthorders }}</h4>
                           </div>
                           <div class="ms-auto widget-icon bg-white-1 text-white">
                               <i class="bi bi-bag-check-fill"></i>
@@ -57,37 +57,7 @@
                       <div class="d-flex align-items-center">
                           <div class="">
                               <p class="mb-1 text-white">This Month Earning</p>
-                              <h4 class="mb-0 text-white">$1,245</h4>
-                          </div>
-                          <div class="ms-auto widget-icon bg-white-1 text-white">
-                              <i class="bi bi-currency-dollar"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col">
-              <div class="card radius-10 bg-success">
-                  <div class="card-body">
-                      <div class="d-flex align-items-center">
-                          <div class="">
-                              <p class="mb-1 text-white">This Year Orders</p>
-                              <h4 class="mb-0 text-white">248</h4>
-                          </div>
-                          <div class="ms-auto widget-icon bg-white-1 text-white">
-                              <i class="bi bi-bag-check-fill"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col">
-              <div class="card radius-10 bg-success">
-                  <div class="card-body">
-                      <div class="d-flex align-items-center">
-                          <div class="">
-                              <p class="mb-1 text-white">This Year Earning</p>
-                              <h4 class="mb-0 text-white">$1,245</h4>
+                              <h4 class="mb-0 text-white">${{ $monthincome }}</h4>
                           </div>
                           <div class="ms-auto widget-icon bg-white-1 text-white">
                               <i class="bi bi-currency-dollar"></i>
@@ -102,7 +72,7 @@
                       <div class="d-flex align-items-center">
                           <div class="">
                               <p class="mb-1 text-white">Total Users</p>
-                              <h4 class="mb-0 text-white">214</h4>
+                              <h4 class="mb-0 text-white">{{ $users }}</h4>
                           </div>
                           <div class="ms-auto widget-icon bg-white-1 text-white">
                               <i class="bi bi-person-plus-fill"></i>
@@ -117,7 +87,7 @@
                       <div class="d-flex align-items-center">
                           <div class="">
                               <p class="mb-1 text-white">Total Admins</p>
-                              <h4 class="mb-0 text-white">214</h4>
+                              <h4 class="mb-0 text-white">{{ $admins }}</h4>
                           </div>
                           <div class="ms-auto widget-icon bg-white-1 text-white">
                               <i class="bi bi-person-badge-fill"></i>
@@ -132,7 +102,7 @@
                       <div class="d-flex align-items-center">
                           <div class="">
                               <p class="mb-1 text-white">Total Product</p>
-                              <h4 class="mb-0 text-white">542</h4>
+                              <h4 class="mb-0 text-white">{{ $products }}</h4>
                           </div>
                           <div class="ms-auto fs-2 text-white">
                               <i class="bi bi-shop-window"></i>
@@ -146,8 +116,8 @@
                   <div class="card-body">
                       <div class="d-flex align-items-center">
                           <div class="">
-                              <p class="mb-1 text-white">Total Catageries</p>
-                              <h4 class="mb-0 text-white">$875</h4>
+                              <p class="mb-1 text-white">Total Plans</p>
+                              <h4 class="mb-0 text-white">{{ $plans }}</h4>
                           </div>
                           <div class="ms-auto fs-2 text-white">
                               <i class="bi bi-card-checklist"></i>
@@ -156,37 +126,7 @@
                   </div>
               </div>
           </div>
-          <div class="col">
-              <div class="card radius-10 bg-secondary">
-                  <div class="card-body">
-                      <div class="d-flex align-items-center">
-                          <div class="">
-                              <p class="mb-1 text-white">Total Post</p>
-                              <h4 class="mb-0 text-white">59</h4>
-                          </div>
-                          <div class="ms-auto fs-2 text-white">
-                              <i class="bi bi-pencil"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col">
-              <div class="card radius-10 bg-info">
-                  <div class="card-body">
-                      <div class="d-flex align-items-center">
-                          <div class="">
-                              <p class="mb-1 text-white">Notifications</p>
-                              <h4 class="mb-0 text-white">8</h4>
-                          </div>
-                          <div class="ms-auto fs-2 text-white">
-                              <i class="bi bi-bell"></i>
-                          </div>
-                      </div>
-                      
-                  </div>
-              </div>
-          </div>
+          
          
       </div><!--end row-->
 
