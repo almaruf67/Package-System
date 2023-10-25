@@ -37,36 +37,42 @@
                                             </thead>
                                             <tbody>
                                                 @php $total = 0 @endphp
+
+                                                @if (session('cart')===NULL)
+                                                    
+                                                @else
                                                 @foreach (session('cart') as $id => $details)
-                                                    <tr>
-                                                        <td data-th="Product">
-                                                            <div class="row">
-                                                                <div class="col-md-9 text-left">
-                                                                    <h6>{{ $details['title'] }}</h6>
-                                                                </div>
+                                                <tr>
+                                                    <td data-th="Product">
+                                                        <div class="row">
+                                                            <div class="col-md-9 text-left">
+                                                                <h6>{{ $details['title'] }}</h6>
                                                             </div>
-                                                        </td>
-                                                        <td class="price" data-th="Price"><span>{{ $details['price'] }}</span></td>
-            
-                                                        <td data-id="{{ $id }}">
-                                                            <input type="number"
-                                                                class="form-control form-control-sm text-center cart_update quantity"
-                                                                min="1" value="{{ $details['quantity'] }}" />
-                                                        </td>
-                                                        @php $sum =$details['quantity'] * $details['price']  @endphp
-                                                        <td class="price" data-th="Sub"><span>{{ $sum }}</span></td>
-            
-                                                        @php $total +=$sum  @endphp
-                                                        <td class="actions">
-                                                            <div rowdel="{{ $id }}" class="p-data">
-                                                                <button
-                                                                    class="btn btn-white border-secondary bg-white btn-md delete-product">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                                        </div>
+                                                    </td>
+                                                    <td class="price" data-th="Price"><span>{{ $details['price'] }}</span></td>
+        
+                                                    <td data-id="{{ $id }}">
+                                                        <input type="number"
+                                                            class="form-control form-control-sm text-center cart_update quantity"
+                                                            min="1" value="{{ $details['quantity'] }}" />
+                                                    </td>
+                                                    @php $sum =$details['quantity'] * $details['price']  @endphp
+                                                    <td class="price" data-th="Sub"><span>{{ $sum }}</span></td>
+        
+                                                    @php $total +=$sum  @endphp
+                                                    <td class="actions">
+                                                        <div rowdel="{{ $id }}" class="p-data">
+                                                            <button
+                                                                class="btn btn-white border-secondary bg-white btn-md delete-product">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach 
+                                                @endif
+                                                
                                             </tbody>
                                         </table>
                                         <div class="row mt-4 d-flex justify-content-end align-items-center">
@@ -140,6 +146,9 @@
                                 </thead>
                                 <tbody>
                                     @php $total = 0 @endphp
+                                    @if (session('cart')===NULL)
+                                                    
+                                    @else
                                     @foreach (session('cart') as $id => $details)
                                         <tr>
                                             <td data-th="Product">
@@ -174,6 +183,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                             <div class="row mt-4 d-flex justify-content-end align-items-center">
